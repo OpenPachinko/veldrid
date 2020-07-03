@@ -82,9 +82,9 @@ namespace Veldrid.MTL
                 throw new VeldridException($"A Metal Swapchain can only be created from an NSWindow, NSView, or UIView.");
             }
 
-            PixelFormat format = description.ColorSrgb
-                ? PixelFormat.B8_G8_R8_A8_UNorm_SRgb
-                : PixelFormat.B8_G8_R8_A8_UNorm;
+            // In macOS 10.11 or later, if you specify rgba16Float (PixelFormat.R16_G16_B16_A16_Float), 
+            // "Deep Color" will be enabled when using Retina Display.
+            PixelFormat format = PixelFormat.R16_G16_B16_A16_Float;
 
             _metalLayer.device = _gd.Device;
             _metalLayer.pixelFormat = MTLFormats.VdToMTLPixelFormat(format, false);
